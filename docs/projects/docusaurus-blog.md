@@ -21,7 +21,6 @@ project on GitHub as part of the Docusaurus project at the Developer Academy
   - [Create a new Markdown file](#create-a-new-markdown-file)
   - [Add the checklist](#add-the-checklist)
 
-
 # Read the checklist
    First of all take a look to [checklist](docusaurus-lerntagebuch-checkliste.md)
 
@@ -60,8 +59,6 @@ npm -v # Should print "11.20.0".
 ### GitHub account
 
 register by [gitHub.com](#https://github.com/signup?source=form-home-signup&user_email=)
-
-
 
 ### IDE
 Install any IDE of your choice. (e.g. [Visual Studio Code](#https://code.visualstudio.com/),
@@ -110,25 +107,23 @@ If the installation and start has succeeded, then check the browser [here](#http
 
 ## Changes done upon to checklist
 
-
-
 ### Ignore unrelated files
 
 This is important to keep your project clean and organized.
 
-- add the name of the file to ignore to the [gitignore](/.gitignore) file
+- add the name of the file to ignore to the .gitignore file
 
 ### Create readme file
 
-- change the [readme.md](/README.md) file upon the checklist.
+- change the readme.md file upon the checklist.
 
 ### Adapt the example.env
 
-- change the [example.env](/example.env) file upon the checklist.
+- change the example.env file upon the checklist.
 
 ### Adapt the Docusaurus.config.ts
 
-- change the [docusaurus.config.ts](/docusaurus.config.ts) file upon the checklist.
+- change the docusaurus.config.ts file upon the checklist.
 
 ### Add a new site logo
 
