@@ -15,9 +15,10 @@ This repository hosts a developer blog built with Docusaurus. It includes tools 
     - [Prerequisites](#prerequisites)
   - [Repository Structure](#repository-structure)
   - [Deployment](#deployment)
-    - [Deploy to Github Pages](#deploy-to-github-pages)
+    - [Deploy to GitHub Pages](#deploy-to-gitHub-pages) 
+      - [Deploy by GitHub Actions](#deploy-to-github-pages)
     - [Deploying using NGINX](#deploying-using-nginx)
-    - [Contributing](#contributing)
+    
 
 ## Quickstart
 
@@ -50,7 +51,7 @@ This repository hosts a developer blog built with Docusaurus. It includes tools 
 
 4. Deployment
 
-   In order to deploy onto Github Pages, ensure that your `docusaurus.config.ts` conforms with the [documentation guidelines](https://docusaurus.io/docs/deployment#deploying-to-github-pages). After that is ensured run the following command to deploy:
+   In order to deploy onto GitHub Pages, ensure that your `docusaurus.config.ts` conforms with the [documentation guidelines](https://docusaurus.io/docs/deployment#deploying-to-github-pages). After that is ensured run the following command to deploy:
 
    ```
    $ USE_SSH=true npm run deploy
@@ -62,8 +63,8 @@ For detailed information about deploying this Docusaurus project, refer to the [
 
 The repository is organized as follows:
 
-- `blog/`: Contains markdown files for blog posts. Blog-related metadata is automatically picked up by the Docusaurus configuration.
-- `docs/`: Contains markdown files for documentation. These files are referenced in `sidebars.ts` to define the sidebar structure.
+- `blog/`: Contains Markdown files for blog posts. Blog-related metadata is automatically picked up by the Docusaurus configuration.
+- `docs/`: Contains Markdown files for documentation. These files are referenced in `sidebars.ts` to define the sidebar structure.
 - `src/`: Contains custom React components, CSS, and JavaScript for additional functionality or theming.
 - `static/`: Stores static assets (e.g., images, icons) served directly without processing.
 - `sidebars.ts`: Configures the structure of sidebars in the documentation section.
@@ -77,28 +78,13 @@ New content can be added as follows:
 
 ## Deployment
 
-### Deploy to Github Pages
+### Deploy to GitHub Pages
 
-To deploy using SSH:
+#### Deploy by GitHub Actions
 
-```
-$ USE_SSH=true npm run deploy
-```
-
-To deploy without using SSH, run:
-
-```
-$ GIT_USER=<Your GitHub username> npm run deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+Using previously created `.github/workflows/main.yml` scripts from [GitHub Actions](#https://docs.github.com/de/actions), this project is built and deployed upon the ==main== branch pushed to GitHub.
+Please check and follow also `.github/workflows/deploy.yaml`, `.github/workflows/create-pr.yaml` and `.github/workflows/checkopen-pr.yaml`.
 
 ### Deploying using NGINX
 
 To deploy the site using NGINX and Docker, follow this [guide](./docs/guides/deploy-docusaurus-with-docker-and-nginx.md)
-
-### Contributing
-
-Currently, this project does not seek collaborators, but we're open to suggestions regarding enhancements or guides to prepare.
-Open an issue with a detailed description on the change you suggest and elaborate why it's benefitial for the project and vast majority.
-If accepted in the discussion, open a pull request from your fork of this repository to contribute your changes.
