@@ -24,7 +24,7 @@ project on GitHub as part of the Docusaurus project at the Developer Academy
 # Read the checklist
    First of all take a look to [checklist](docusaurus-lerntagebuch-checkliste.md)
 
-# Requirements
+# Prerequisites
 
 import GithubLinkAdmonition from '@site/src/components/GithubLinkAdmonition';
 
