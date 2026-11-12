@@ -127,12 +127,12 @@ This is important to keep your project clean and organized.
 
 ### Add a new site logo
 
-- add the logo ![maguess-systems.svg](../../static/img/maguess-systems.svg)
+- add the logo ![maguess-systems.svg](../../../static/img/maguess-systems.svg)
 
 ### Create a new Markdown file
 
-- create a new docusaurus-blog.md file in the [docs/projects/docusaurus-blog.md](/docs/projects/docusaurus-blog.md) folder.
+- create a new docusaurus-blog.md file in the [docs/projects/docusaurus-blog.md](/docs/projects/Docusaurus-project/docusaurus-blog.md/docusaurus-blog.md) folder.
 
 ### Add the checklist
 
-- add the checklist to the [docusaurus-lerntagebuch-checkliste.md](/docs/projects/docusaurus-lerntagebuch-checkliste.md) file.
+- add the checklist to the [docusaurus-lerntagebuch-checkliste.md](/docs/projects/Docusaurus-project/docusaurus-lerntagebuch-checkliste.md) file.
