@@ -3,17 +3,14 @@
 <!--INSERT YOUR BRIEF DESCRIPTION HERE -->
 This page documents how I configured my very first cloud server instance in the Developer Akademie DevSecOps Course.
 
-## TOC
+## Table of contents
 
 <!--INSERT YOUR TABLE OF CONTENTS HERE -->
 
-import GithubLinkAdmonition from '@site/src/components/GithubLinkAdmonition';
+## Prerequisites
 
-<GithubLinkAdmonition
-link="https://github.com/spmse/dev-blog-template"
-title="Github Tip"
-type="tip"
-/>
+1. do X
+2. do Y
 
 ## Quickstart
 
