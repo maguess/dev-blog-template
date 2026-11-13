@@ -59,7 +59,7 @@ A short description of the quickstart process for someone, who don't need to kno
    `ssh-copy-id -f -i ~/.ssh/ed25519/public.key <user>@<v-server-ip>`.
 6. Try to **log in** (ssh-keypair-mechanism) to the v-server via **git-bash** `ssh <user>@<v-server-ip>`.
 7. **Deactivate** the password authentication on the v-server by running `sudo nano /etc/ssh/sshd_config` and change the 
-   line `PasswordAuthentication yes` to `PasswordAuthentication no`.
+   line `PubkeyAuthentication yes` to `PasswordAuthentication no`.
 8. **Restart** the ssh service by running `sudo systemctl restart ssh`.
 9. **Verify** that the password authentication is disabled by running `sudo nano /etc/ssh/sshd_config` and checking that 
    the line `PasswordAuthentication no` is present on the v-server.
