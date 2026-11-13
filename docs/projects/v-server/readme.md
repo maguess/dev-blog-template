@@ -7,8 +7,8 @@ GitHub-repository.
 
 # Table of contents
 
-- [Prerequisites](#Prerequisites)
-- [Quickstart](#Quickstart)
+- [Prerequisites](#prerequisites)
+- [Quickstart](#quickstart)
 - [Description](#description)
     - 1 - [Start git-bash or wsl ](#1-start-git-bash-or-wsl)
     - 2 - [Ping the v-server](#2-ping-the-v-server)
@@ -18,16 +18,16 @@ GitHub-repository.
     - 6 - [Logout then re-log-in](#6-logout-then-re-log-in)
     - 7 - [Login to the v-server and deactivate the password authentication](#7-login-to-the-v-server-and-deactivate-the-password-authentication)
     - 8 - [Restart the ssh service](#8-restart-the-ssh-service)
-    - 9 - [Verify that the password authentication is disabled](#9-verify-that-the-password-authentication-is-disabled-)
+    - 9 - [Verify that the password authentication is disabled](#9-verify-that-the-password-authentication-is-disabled)
     - 10 - [Re-log-in to the v-server](#10-re-log-in-to-the-v-server)
-    - 11 - [Logout then re-log-in](#6-logout-then-re-log-in)
-    - 12 - [Install nginx](#11-install-nginx)
-    - 13 - [Reconfigure nginx on port 8081](#12-reconfigure-nginx-on-port-8081-)
-    - 14 - [Restart nginx to apply the changes](#13-restart-nginx-to-apply-the-changes)
-    - 15 - [Install git on the v-server](#14-install-git-on-the-v-server)
-    - 16 - [Create the .gitconfig](#15-create-the-gitconfig)
-    - 17 - [Generate the ssh-key-pair on v-server](#16-generate-the-ssh-key-pair-on-v-server)
-    - 18 - [Deploy the content of the public-keyfile to GitHub](#17-deploy-the-content-of-the-public-keyfile-to-github)
+    - 11 - [Install nginx](#11-install-nginx)
+    - 12 - [Reconfigure nginx on port 8081](#12-reconfigure-nginx-on-port-8081)
+    - 13 - [Restart nginx to apply the changes](#13-restart-nginx-to-apply-the-changes)
+    - 14 - [Install git on the v-server](#14-install-git-on-the-v-server)
+    - 15 - [Create the .gitconfig](#15-create-the-gitconfig)
+    - 16 - [Generate the ssh-key-pair on v-server](#16-generate-the-ssh-key-pair-on-v-server)
+    - 17 - [Deploy the content of the public-keyfile to GitHub](#17-deploy-the-content-of-the-public-keyfile-to-github)
+    - 18 - [Test the connection to GitHub.com](#18-test-the-connection-to-githubcom)
     - 19 - [Clone the dev-blog-template in the v-server](#19-clone-the-dev-blog-template-in-the-v-server)
 
 ## Prerequisites
@@ -58,10 +58,10 @@ A short description of the quickstart process for someone, who don't need to kno
 5. **Copy** the public key from your local machine to the v-server by running 
    `ssh-copy-id -f -i ~/.ssh/ed25519/public.key <user>@<v-server-ip>`.
 6. Try to **log in** (ssh-keypair-mechanism) to the v-server via **git-bash** `ssh <user>@<v-server-ip>`.
-7. **Deactivate** the password authentication on the v-server by running `sudo nano /etc/ssh/sshd_config` and change the 
-   line `PasswordAuthentication yes` to `PasswordAuthentication no`.
+7. **Deactivate** the password authentication on the v-server by running `sudo nano ~/etc/ssh/sshd_config` and change the 
+   line `PubkeyAuthentication yes` to `PasswordAuthentication no`.
 8. **Restart** the ssh service by running `sudo systemctl restart ssh`.
-9. **Verify** that the password authentication is disabled by running `sudo nano /etc/ssh/sshd_config` and checking that 
+9. **Verify** that the password authentication is disabled by running `sudo nano ~/etc/ssh/sshd_config` and checking that 
    the line `PasswordAuthentication no` is present on the v-server.
 10. **Verify** that the ssh-keypair was successfully copied to the v-server by running `ssh <user>@<v-server-ip>`.
 11. **Install** nginx on the v-server and check that it is running by running `sudo systemctl status nginx`.
@@ -102,6 +102,7 @@ It covers the installation of necessary software, configuration of SSH keys, and
    Generate the ssh-keypair locally and skip the passphrase by running on your local machine:
    ```bash
    #run:
+   #in the ~/.ssh/
    ssh-keygen -t ed25519 -C <user>@<v-server-ip>
    ```
    ![img_1.png](img_1.png)
@@ -122,7 +123,7 @@ It covers the installation of necessary software, configuration of SSH keys, and
 ### 7. Login to the v-server and deactivate the password authentication
    ```bash
    #run:
-   sudo nano /etc/ssh/sshd_config 
+   sudo nano ~/etc/ssh/sshd_config 
    # and change the line `PasswordAuthentication yes` to `PasswordAuthentication no
    #Save (Ctrl-O)and exit(Ctrl-X) the file.
    ```
@@ -132,11 +133,11 @@ It covers the installation of necessary software, configuration of SSH keys, and
    #run:
    sudo systemctl restart ssh
    ```
-### 9. Verify that the password authentication is disabled 
+### 9. Verify that the password authentication is disabled
   Check that the line "PasswordAuthentication=no" is present on the v-server by running:
   ```bash
    # run
-   sudo nano /etc/ssh/sshd_config
+   sudo nano ~/etc/ssh/sshd_config
    #then run
    sudo sshd -T | grep -E passwordauthentication|pubkeyauthentication|permitrootlogin
    ```
@@ -155,14 +156,14 @@ It covers the installation of necessary software, configuration of SSH keys, and
    systemctl status nginx.service
    #call the v-server locally in : http://<v-server-ip>:8080. You should see the welcome page.
    ```
-### 12. Reconfigure nginx on port 8081 
+### 12. Reconfigure nginx on port 8081
    Reconfigure nginx on port 8081 and let ist display a custom page on the v-server.
    ```bash
    #run:
-   sudo mkdir /var/www/alternatives
-   sudo touch /var/www/alternatives/alternate-index.html
+   sudo mkdir ~/var/www/alternatives
+   sudo touch ~/var/www/alternatives/alternate-index.html
    sudo systemctl status nginx
-   sudo nano /etc/nginx/sites-enabled/alternatives
+   sudo nano ~/etc/nginx/sites-enabled/alternatives
    #Then insert the following text in the file alternate-index.html:
    server {
             listen 8081;
@@ -203,12 +204,12 @@ It covers the installation of necessary software, configuration of SSH keys, and
    Generate the ssh-key-pair on v-server to get connected to the GitHub.com. Switch into the ~/.ssh directory:
    The file should be named **id_ed25519**. Further information for [ed25519](https://ed25519.cr.yp.to/ed25519-20110926.pdf)
    ```bash
-   #run:
+   #run in ~/.ssh/ :   
    ssh-keygen -t ed25519 -C <same-user-as-git-user>@<same-email-as-git-user>
    ```
 ### 17. Deploy the content of the public-keyfile to GitHub
    [GitHub](https://github.com/<github-username>/dev-blog-template/settings/keys) account.
-### 18. Test the connection to GitHub.com 
+### 18. Test the connection to GitHub.com
    **please don't use your GitHub account**:
    ```bash
    #run:
