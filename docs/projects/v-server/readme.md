@@ -7,8 +7,8 @@ GitHub-repository.
 
 # Table of contents
 
-- [Prerequisites](#Prerequisites)
-- [Quickstart](#Quickstart)
+- [Prerequisites](#prerequisites)
+- [Quickstart](#quickstart)
 - [Description](#description)
     - 1 - [Start git-bash or wsl ](#1-start-git-bash-or-wsl)
     - 2 - [Ping the v-server](#2-ping-the-v-server)
