@@ -131,7 +131,7 @@ This is important to keep your project clean and organized.
 
 ### Create a new Markdown file
 
-- create a new docusaurus-blog.md file in the [docs/projects/docusaurus-blog.md](/docs/projects/Docusaurus-project/docusaurus-blog.md/docusaurus-blog.md) folder.
+- create a new docusaurus-blog.md file in the [docs/projects/docusaurus-blog.md](/docs/projects/Docusaurus-project/docusaurus-blog.md) folder.
 
 ### Add the checklist
 
