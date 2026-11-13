@@ -1,6 +1,5 @@
-# V-Server Setup
+# V-Server Setup of 168.119.232.167
 
-<!--INSERT YOUR BRIEF DESCRIPTION HERE -->
 This page documents how to set up a virtual-server v-server on a cloud instance and how to configure the nginx server 
 there. Additionally, there is a description about how to run git on the v-server to clone a project from 
 GitHub-repository. 
@@ -34,10 +33,7 @@ GitHub-repository.
 
 what I need to do before I can start?
 1. Display the os on the v-server by running `lsb_release -a`
-2. Read the [checklist](v-server-checklist.md) carefully and the 
-   [FAQ](https://developer-akademie-devsecopskurs.github.io/dso-faq-site/de/docs/projects/vserver-setup/faq). 
-3. The [credentials](https://developer-akademie.teachable.com/p/project-tools) for the cloud-instance should be 
-   available and the instance should be running.
+2. You need access to the running vm.
 4. A valid [GitHub](https://github.com/) account.
 5. A GitHub repository to store the configuration files.
 6. An ssh client installed on the local machine e.g. [OpenSSH](https://www.openssh.com/), 
@@ -56,25 +52,28 @@ A short description of the quickstart process for someone, who don't need to kno
 4. **Generate** the ssh-keypair by running `ssh-keygen -t ed25519 -C <user>@<v-server-ip>"` on your local 
    machine.
 5. **Copy** the public key from your local machine to the v-server by running 
-   `ssh-copy-id -f -i ~/.ssh/ed25519/public.key <user>@<v-server-ip>`.
-6. Try to **log in** (ssh-keypair-mechanism) to the v-server via **git-bash** `ssh <user>@<v-server-ip>`.
-7. **Deactivate** the password authentication on the v-server by running `sudo nano ~/etc/ssh/sshd_config` and change the 
-   line `PubkeyAuthentication yes` to `PasswordAuthentication no`.
-8. **Restart** the ssh service by running `sudo systemctl restart ssh`.
-9. **Verify** that the password authentication is disabled by running `sudo nano ~/etc/ssh/sshd_config` and checking that 
-   the line `PasswordAuthentication no` is present on the v-server.
-10. **Verify** that the ssh-keypair was successfully copied to the v-server by running `ssh <user>@<v-server-ip>`.
-11. **Install** nginx on the v-server and check that it is running by running `sudo systemctl status nginx`.
-12. **Reconfigure** nginx on port 8081 and let ist display a custom page on the v-server.
-13. **Verify** that nginx is running on port 8081 by running `curl http://<v-server-ip>:8081` on the v-server.
-14. **Install** git on the v-server by running `sudo apt-get install git` (only if git is not running). 
+   `ssh-copy-id -f -i ~/.ssh/ed25519/public.key <user>@<v-server-ip>`. 
+6. **Log in** (ssh-keypair-mechanism) to the v-server via **git-bash** `ssh -i ~/.ssh/id_ed25519
+   -o PubkeyAuthentication=yes -o PasswordAuthentication=no <user>@<v-server-ip>`.
+:::danger
+**Deactivate, only after the login via (ssh-keypair-mechanism) has successes, the password authentication**
+:::
+7. **Deactivate (user-password-mechanism)**, by running `sudo nano ~/etc/ssh/sshd_config` and change two lines. 
+   Uncomment **`PubkeyAuthentication yes`** and change the value of **PasswordAuthentication** to `no`. 
+8. **Restart** the ssh service by running `sudo systemctl restart ssh`. 
+9. **Test a login denied** via (user-password-mechanism). `ssh -i ~/.ssh/id_ed25519
+   -o PreferredAuthentications=password -o PubkeyAuthentication=no <user>@<v-server-ip>`.
+10. **Install** nginx on the v-server and check that it is running by running `sudo systemctl status nginx`.
+11. **Reconfigure** nginx on port 8081 and let ist display a custom page on the v-server.
+12. **Verify** that nginx is running on port 8081 by running `curl http://<v-server-ip>:8081` on the v-server.
+13. **Install** git on the v-server by running `sudo apt-get install git` (only if git is not running). 
     and **Verify** that git is installed by running the v-server `git --version`.
-15. **Configure** username and email in git to match the github-username and email.
-16.  **Generate** the ssh-keypair by running `ssh-keygen -t id_ed25519 -C <github-user-email-adress>"` on the
+14. **Configure** username and email in git to match the github-username and email.
+15.  **Generate** the ssh-keypair by running `ssh-keygen -t id_ed25519 -C <github-user-email-adress>"` on the
     v-server.
-17. **Load** the public file to [GitHub](https://github.com/<username>/dev-blog-template/settings/keys). 
-18. **Test** via **git-bash** `git -T git@github.com`
-19. **Clone** the "dev-blog-template" in the v-server machine: via **git-bash**:
+16. **Load** the public file to [GitHub](https://github.com/<username>/dev-blog-template/settings/keys). 
+17. **Test** via **git-bash** `git -T git@github.com`
+18. **Clone** the "dev-blog-template" in the v-server machine: via **git-bash**:
     `git clone git@github.com:<username>/dev- blog-template.git`
 
 ## Description
@@ -120,11 +119,15 @@ It covers the installation of necessary software, configuration of SSH keys, and
    ssh -i ~/.ssh/id_ed25519 -o PubkeyAuthentication=yes -o PasswordAuthentication=no <user>@<v-server-ip>
    ```
    ![img_2.png](img_2.png)
+   :::danger
+   Deactivate, only after the login via (ssh-keypair-mechanism) has successes, the password authentication.
+   :::
+
 ### 7. Login to the v-server and deactivate the password authentication
    ```bash
    #run:
    sudo nano ~/etc/ssh/sshd_config 
-   # and change the line `PasswordAuthentication yes` to `PasswordAuthentication no
+   #and change the line `PasswordAuthentication yes` to `PasswordAuthentication no
    #Save (Ctrl-O)and exit(Ctrl-X) the file.
    ```
 ### 8. Restart the ssh service
@@ -134,13 +137,15 @@ It covers the installation of necessary software, configuration of SSH keys, and
    sudo systemctl restart ssh
    ```
 ### 9. Verify that the password authentication is disabled
-  Check that the line "PasswordAuthentication=no" is present on the v-server by running:
   ```bash
-   # run
-   sudo nano ~/etc/ssh/sshd_config
-   #then run
-   sudo sshd -T | grep -E passwordauthentication|pubkeyauthentication|permitrootlogin
-   ```
+   #run on the v-server    
+   sudo sshd -T | grep -E "passwordauthentication|pubkeyauthentication|permitrootlogin"
+   
+   #or test the login denied on your local machine
+   
+   ssh -i ~/.ssh/id_ed25519 -o PreferredAuthentications=password -o PubkeyAuthentication=no <user>@<v-server-ip>
+   ``` 
+    ![img_5.png](img_5.png)
 ### 10. Re-log-in to the v-server
    Re-log-in to the v-server. You should be logged in without password: 
    ```bash
@@ -182,9 +187,9 @@ It covers the installation of necessary software, configuration of SSH keys, and
    ```bash
     #run:
     sudo systemctl restart nginx    
-    # The output in the browser should be: 
-    # **Hello, Nginx!
-    # I have configured our Nginx web server on Ubuntu Server!**
+    #The output in the browser should be: 
+    #**Hello, Nginx!
+    #I have configured our Nginx web server on Ubuntu Server!**
    ```
 ### 14. Install git on the v-server
    ```bash
