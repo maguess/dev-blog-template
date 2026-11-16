@@ -1,4 +1,4 @@
-# V-Server Setup of 168.119.232.167
+# V-Server Setup
 
 This page documents how to set up a virtual-server v-server on a cloud instance and how to configure the nginx server 
 there. Additionally, there is a description about how to run git on the v-server to clone a project from 
